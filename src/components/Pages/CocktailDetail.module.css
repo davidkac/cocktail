@@ -1,0 +1,13 @@
+.cocktail {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  
+}
+
+.img {
+    padding: 1rem;
+    width: 350px;
+    height: 400px;
+    border-radius: 20px;
+}
