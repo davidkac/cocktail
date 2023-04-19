@@ -5,8 +5,6 @@ import classes from "./CocktailDetail.module.css";
 
 const CocktailDetail = () => {
   const [cocktail, setCocktail] = useState([]);
-
-  
   const params = useParams();
   console.log(cocktail);
 
@@ -22,12 +20,15 @@ const CocktailDetail = () => {
 
   return (
     <>
-     
+   
       {cocktail.map((item) => {
         return (
-          <div className={classes.cocktail} key={item.idDrink}>
-            <h2>{item.strDrink}</h2>
+          <div key={item.idDrink} className={classes.container}>
+            <div className={classes['image-container']}>
+            <h2 className={classes.title}>{item.strDrink}</h2>
             <img src={item.strDrinkThumb} className={classes.img}></img>
+            </div>
+            <div className={classes['image-properties']}> 
             <div>
               <h3>Category:</h3>
               <p>{item.strCategory}</p>
@@ -37,7 +38,7 @@ const CocktailDetail = () => {
                 <p>{item.strAlcoholic}</p>
             </div>
             <div>
-                <h3>Glass:</h3>
+                <h3>Glass:</h3> 
                 <p>{item.strGlass}</p>
             </div>
             <div>
@@ -47,7 +48,7 @@ const CocktailDetail = () => {
                 <p>{item.strIngredient3}</p>
                 <p>{item.strIngredient4}</p>
             </div>
-            
+            </div>
           </div>
         );
       })}

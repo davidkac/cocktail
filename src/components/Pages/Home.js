@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [listCoctails, setListCocktails] = useState([]);
 
-  console.log(listCoctails);
+  // console.log(listCoctails);
 
   const fetchCocktails = async () => {
     getAllCocktails()
@@ -20,11 +20,11 @@ const Home = () => {
 
   return (
     <>
-      <h2>Home</h2>
+      <div className={classes.main}>
       <div className={classes.container}>
         {listCoctails.map((item) => {
           return (
-            <div key={item.idDrink}>
+            <div key={item.idDrink} className={classes.card}>
               <Link to={`/cocktail/${item.idDrink}`}>
                 <img src={item.strDrinkThumb} className={classes.img}></img>
               </Link>
@@ -32,6 +32,7 @@ const Home = () => {
             </div>
           );
         })}
+      </div>
       </div>
     </>
   );
