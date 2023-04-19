@@ -7,6 +7,7 @@ import CocktailDetail from "./components/Pages/CocktailDetail";
 import Categories from "./components/Pages/Categories";
 import Glasses from './components/Pages/Glasses';
 import Ingredients from "./components/Pages/Ingredients";
+import FavouriteCocktail from "./components/Pages/FavouriteCocktail";
 
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
         { path:'/categories', element: <Categories />},
         { path:'/glasses', element: <Glasses />},
         { path:'/ingredients', element: <Ingredients />},
+        { path:'/favourite', element: <FavouriteCocktail />},
+
 
       ],
     },

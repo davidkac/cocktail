@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { getAllCocktails } from "../Services/CocktailService";
 import classes from "./Home.module.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cocktailActions } from "../../store/cocktail-slice";
 
 const Home = () => {
   const [listCoctails, setListCocktails] = useState([]);
+  const dispatch = useDispatch();
+  
 
   // console.log(listCoctails);
 
@@ -12,6 +16,10 @@ const Home = () => {
     getAllCocktails()
       .then((response) => setListCocktails(response.data.drinks))
       .catch((error) => console.log(error));
+  };
+
+  const addCocktailToFavouriteHandler = (cocktail) => {
+    dispatch(cocktailActions.addCocktailToFavourite(cocktail));
   };
 
   useEffect(() => {
@@ -28,8 +36,13 @@ const Home = () => {
               <Link to={`/cocktail/${item.idDrink}`}>
                 <img src={item.strDrinkThumb} className={classes.img}></img>
               </Link>
-              <h4>{item.strDrink}</h4>
+              <h4>{item.strDrink}
+              <button onClick={() => addCocktailToFavouriteHandler(item)}>
+                Add to favourite
+              </button></h4>
+              
             </div>
+            
           );
         })}
       </div>
