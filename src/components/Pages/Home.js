@@ -1,52 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { getAllCocktails } from "../Services/CocktailService";
-import classes from "./Home.module.css";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { cocktailActions } from "../../store/cocktail-slice";
+import Coctails from "./Cocktails";
+import FavouriteCocktail from "./FavouriteCocktail";
+import { useSelector } from "react-redux";
+
 
 const Home = () => {
-  const [listCoctails, setListCocktails] = useState([]);
-  const dispatch = useDispatch();
-  
+  const [existFavourite, setExistFavourite ] = useState(false);
+  const favouritesChanged = useSelector(
+    (state) => state.cocktail.favouritesChanged
+  );
 
-  // console.log(listCoctails);
 
-  const fetchCocktails = async () => {
-    getAllCocktails()
-      .then((response) => setListCocktails(response.data.drinks))
-      .catch((error) => console.log(error));
-  };
-
-  const addCocktailToFavouriteHandler = (cocktail) => {
-    dispatch(cocktailActions.addCocktailToFavourite(cocktail));
+  const getItemsFromLocalStorage = () => {
+    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    setExistFavourite(favourites.length > 0);
   };
 
   useEffect(() => {
-    fetchCocktails();
-  }, []);
+    getItemsFromLocalStorage();
+  }, [favouritesChanged]);
 
   return (
     <>
-      <div className={classes.main}>
-      <div className={classes.container}>
-        {listCoctails.map((item) => {
-          return (
-            <div key={item.idDrink} className={classes.card}>
-              <Link to={`/cocktail/${item.idDrink}`}>
-                <img src={item.strDrinkThumb} className={classes.img}></img>
-              </Link>
-              <h4>{item.strDrink}
-              <button onClick={() => addCocktailToFavouriteHandler(item)}>
-                Add to favourite
-              </button></h4>
-              
-            </div>
-            
-          );
-        })}
-      </div>
-      </div>
+      {existFavourite ? <FavouriteCocktail /> : <Coctails />}
     </>
   );
 };

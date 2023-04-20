@@ -4,10 +4,11 @@ import Home from "./components/Pages/Home";
 import Root from "./components/Pages/Root";
 import Cocktails from "./components/Pages/Cocktails";
 import CocktailDetail from "./components/Pages/CocktailDetail";
-import Categories from "./components/Pages/Categories";
-import Glasses from './components/Pages/Glasses';
-import Ingredients from "./components/Pages/Ingredients";
+import Categories from "./components/Tables/Categories";
+import Glasses from "./components/Tables/Glasses";
+import Ingredients from "./components/Tables/Ingredients";
 import FavouriteCocktail from "./components/Pages/FavouriteCocktail";
+import BartenderBeginner from "./components/Pages/Bartender-beginner";
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         { path:'/glasses', element: <Glasses />},
         { path:'/ingredients', element: <Ingredients />},
         { path:'/favourite', element: <FavouriteCocktail />},
-
+        { path:'/bartender-beginner',element: <BartenderBeginner />}
 
       ],
     },

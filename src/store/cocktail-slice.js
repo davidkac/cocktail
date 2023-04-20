@@ -4,13 +4,11 @@ const cocktailSlice = createSlice({
   name: "cocktail",
   initialState: {
     favouriteItems: [],
-    quantity: 0,
-    changed: false,
+    favouritesChanged: false,
   },
   reducers: {
     replaceCocktailFavourites(state, action) {
       state.favouriteItems = action.payload.favouriteItems;
-      state.quantity = action.payload.quantity;
     },
 
     addCocktailToFavourite(state, action) {
@@ -18,13 +16,10 @@ const cocktailSlice = createSlice({
       const existingCocktail = state.favouriteItems.find(
         (item) => item.idDrink === cocktail.idDrink
       );
-      state.changed = true;
-      if (existingCocktail) {
-        existingCocktail.quantity++;
-      } else {
-        state.favouriteItems.push({ ...cocktail, quantity: 1 });
+      state.favouritesChanged = true;
+      if (!existingCocktail) {
+        state.favouriteItems.push({ ...cocktail });
       }
-      state.quantity++;
       localStorage.setItem(
         "favourites",
         JSON.stringify(state.favouriteItems)
@@ -33,27 +28,18 @@ const cocktailSlice = createSlice({
 
     removeCocktailFromFavourite(state, action) {
       const cocktailId = action.payload;
-      const existingCocktail = state.favouriteItems.find(
-        (item) => item.idDrink === cocktailId
-      );
-      state.changed = true;
-      if (existingCocktail) {
-        if (existingCocktail.quantity === 1) {
-          state.favouriteItems = state.favouriteItems.filter(
-            (item) => item.idDrink !== cocktailId
-          );
-        } else {
-          existingCocktail.quantity--;
-        }
-        state.quantity--;
-        localStorage.setItem(
-          "favourites",
-          JSON.stringify(state.favouriteItems)
-        );
-      }
-    },
+      state.favouritesChanged = true;
+      state.favouriteItems = state.favouriteItems.filter(
+        (item) => item.idDrink !== cocktailId
+      )
+      localStorage.setItem(
+        "favourites",
+        JSON.stringify(state.favouriteItems)
+      )
+      
+   
   },
-});
+}});
 
 export const cocktailActions = cocktailSlice.actions;
 

@@ -1,7 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import classes from "./FavouriteCocktail.module.css";
+import classes from "./Items.module.css";
 import { cocktailActions } from "../../store/cocktail-slice";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+
 
 const FavouriteCocktail = () => {
   const favouriteCocktails = useSelector(
@@ -30,24 +38,36 @@ const FavouriteCocktail = () => {
   return (
     <>
       <h1>Favourite Cocktails</h1>
-      <div className={classes.container}>
-        {favouriteCocktails.map((item) => {
-          return (
-            <div key={item.idDrink} className={classes.card}>
-              <img
-                src={item.strDrinkThumb}
-                alt={item.strDrink}
-                className={classes.img}
+      <div className={classes.card}>
+        {favouriteCocktails.map((item, index) => (
+          <Card sx={{ width: 260 }} key={index}>
+            <Link to={`/cocktail/${item.idDrink}`}>
+              <CardMedia
+                sx={{ height: 250 }}
+                image={item.strDrinkThumb}
+                title={item.strDrink}
               />
-              <h4>
+            </Link>
+            <CardContent sx={{ height: 5 }}>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                sx={{ fontSize: "16px" }}
+              >
                 {item.strDrink}
-                <button onClick={() => removeFavourite(item.idDrink)}>
-                  remove favourite
-                </button>
-              </h4>
-            </div>
-          );
-        })}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ height: 15 }}>
+              <Button
+                size="small"
+                onClick={() => removeFavourite(item.idDrink)}
+              >
+               Remove favorite
+              </Button>
+            </CardActions>
+          </Card>
+        ))}
       </div>
     </>
   );
