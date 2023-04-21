@@ -10,9 +10,9 @@ const Home = () => {
     (state) => state.cocktail.favouritesChanged
   );
 
-
   const getItemsFromLocalStorage = () => {
     const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    console.log('FAV', favourites)
     setExistFavourite(favourites.length > 0);
   };
 

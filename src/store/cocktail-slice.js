@@ -28,14 +28,15 @@ const cocktailSlice = createSlice({
 
     removeCocktailFromFavourite(state, action) {
       const cocktailId = action.payload;
-      state.favouritesChanged = true;
       state.favouriteItems = state.favouriteItems.filter(
         (item) => item.idDrink !== cocktailId
       )
+      state.favouritesChanged = Boolean(state.favouriteItems.length);
       localStorage.setItem(
         "favourites",
         JSON.stringify(state.favouriteItems)
       )
+      
       
    
   },

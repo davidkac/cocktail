@@ -26,7 +26,6 @@ const FavouriteCocktail = () => {
     dispatch(
       cocktailActions.replaceCocktailFavourites({
         favouriteItems: favourites,
-        quantity: favourites.length,
       })
     );
   };

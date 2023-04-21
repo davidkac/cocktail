@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Pages/Home";
-import Root from "./components/Pages/Root";
+import Root from "./components/RootLayout/Root";
 import Cocktails from "./components/Pages/Cocktails";
 import CocktailDetail from "./components/Pages/CocktailDetail";
 import Categories from "./components/Tables/Categories";
@@ -24,8 +24,8 @@ function App() {
         { path:'/glasses', element: <Glasses />},
         { path:'/ingredients', element: <Ingredients />},
         { path:'/favourite', element: <FavouriteCocktail />},
-        { path:'/bartender-beginner',element: <BartenderBeginner />}
-
+        { path:'/bartender-beginner',element: <BartenderBeginner />},
+  
       ],
     },
   ]);

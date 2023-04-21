@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -14,36 +14,71 @@ import classes from "./Items.module.css";
 import { useDispatch } from "react-redux";
 import { cocktailActions } from "../../store/cocktail-slice";
 import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 
 const BartenderBeginner = () => {
-  const [filterVal, setFilterVal] = useState({ g: "", c: "", a: "", i: "" });
+  
   const [filterDrinks, setFilterDrinks] = useState([]);
+
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  console.log(filterDrinks);
+  const queryParams = new URLSearchParams(window.location.search)
 
-  const filterResults = (event, type) => {
-    setFilterVal({ ...filterVal, [type]: event.target.value });
-    getDrinks({ ...filterVal, [type]: event.target.value })
+  console.log(queryParams)
+
+
+  // Get filters from query string params
+  let urlFilter = { g: "", c: "", a: "", i: "" };
+
+  for (const [key, value] of queryParams) {
+    urlFilter[key] = value;
+  }
+
+  const [filterVal, setFilterVal] = useState(urlFilter);
+  console.log('CURRENT urlFilter',urlFilter)
+
+  // console.log(filterDrinks);
+
+  const listItems = (filterObj)=>{
+    getDrinks(filterObj)
       .then((response) => setFilterDrinks(response.data.drinks))
       .catch((error) => console.log(error));
+  }
+
+  const filterResults = (event, type) => {
+    let newFilter = { ...filterVal, [type]: event.target.value };
+    setFilterVal(newFilter);
+    let sanitized = Object.keys(newFilter)
+    .filter(key => newFilter[key].length)
+    .reduce((obj, key) => {
+      console.log(obj)
+      return {
+        ...obj,
+        [key]: newFilter[key]
+      };
+    }, {});
+    console.log(sanitized)
+    navigate({
+      pathname: location.pathname,
+      search: "?" + new URLSearchParams(sanitized).toString()
+    });
+    listItems(newFilter);
   };
 
   const addCocktailToFavouriteHandler = (cocktail) => {
     dispatch(cocktailActions.addCocktailToFavourite(cocktail));
   };
 
-  // const renderData = (data) => {
-  //   if(!data || data?.length == 0) {
-  //     return;
-  //   }
+  // Initialize filtered list on page load
+  useEffect(() => {
+  listItems(urlFilter);
 
-  //   return data.map((item,index) => {
-  //     return <div>
+  },[])
 
-  //     </div>
-  //   })
-  // }
 
   return (
     <>
