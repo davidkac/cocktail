@@ -1,0 +1,14 @@
+.cardWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  max-width: 800;
+  margin-top: 1rem;
+}
+.card:hover{
+  opacity: 80%;
+}
+.actionBtn:hover{
+  background-color: transparent!important;
+  color: green
+}

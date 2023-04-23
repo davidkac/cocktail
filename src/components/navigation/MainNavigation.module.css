@@ -1,0 +1,13 @@
+.toolbar{
+   
+}
+.menuItem{
+    padding: 0 2rem;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.menuItem:hover{
+    color: rgb(19, 1, 65);
+}

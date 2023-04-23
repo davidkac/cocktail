@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Coctails from "./Cocktails";
-import FavouriteCocktail from "./FavouriteCocktail";
+import Coctails from "../Cocktails/Cocktails";
+import FavouriteCocktail from "../FavouriteCocktail/FavouriteCocktail";
 import { useSelector } from "react-redux";
 
 
 const Home = () => {
+
   const [existFavourite, setExistFavourite ] = useState(false);
   const favouritesChanged = useSelector(
     (state) => state.cocktail.favouritesChanged

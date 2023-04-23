@@ -1,8 +1,0 @@
-.card {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  max-width: 800;
-  margin-top: 1rem;
-
-}
