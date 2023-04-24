@@ -12,20 +12,19 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import ErrorPage from "../../ErrorPage/ErrorPage";
 
 const CocktailDetail = () => {
 
   const [cocktail, setCocktail] = useState({});
-  const params = useParams();
-  const dispatch = useDispatch();
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const [measure, setMeasure] = useState([]);
   const [instruction, setInstruction] = useState("");
   const [instructionText, setInstructionText] = useState("");
- 
 
+  const dispatch = useDispatch();
+  const params = useParams();
+  
   const fetchCocktail = async () => {
 
     getCocktail(params.cocktailId)
@@ -87,7 +86,6 @@ const CocktailDetail = () => {
           gridTemplateColumns: "repeat(2, 1fr)",
         }}
       >
-        
         <Box>
           <div className={classes["image-container"]}>
             <Typography
@@ -137,9 +135,9 @@ const CocktailDetail = () => {
               </div>
               <div>
                 <h3>Ingredients :</h3>
-                {ingredients.map((ingredient, key) => {
+                {ingredients.map((ingredient, index) => {
                   return (
-                    <div key={key}>
+                    <div key={index}>
                       <p>{Object.values(ingredient)[0]}</p>
                     </div>
                   );
@@ -157,9 +155,9 @@ const CocktailDetail = () => {
                     label="ingredients"
                     onChange={(event) => showInstructions(event)}
                   >
-                    {instructions.map((instruction, key) => {
+                    {instructions.map((instruction, index) => {
                       return (
-                        <MenuItem value={instruction} key={key}>
+                        <MenuItem value={instruction} key={index}>
                           {instruction}
                         </MenuItem>
                       );

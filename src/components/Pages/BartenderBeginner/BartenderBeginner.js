@@ -11,9 +11,15 @@ import CocktailCard from "../../Elements/CocktailCard";
 
 const BartenderBeginner = () => {
   const [filterDrinks, setFilterDrinks] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [alcohol, setAlcohol] = useState([]);
+  const [glasses, setGlasses] = useState([]);
+
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  
   const queryParams = new URLSearchParams(window.location.search);
 
   // Get filters from query string params
@@ -27,7 +33,6 @@ const BartenderBeginner = () => {
   const [filterVal, setFilterVal] = useState(urlFilter);
 
   // Get list of filters
-  const [category, setCategory] = useState([]);
   const fetchCategory = async () => {
     getFilters("c")
       .then((response) => setCategory(response.data.drinks))
@@ -36,7 +41,6 @@ const BartenderBeginner = () => {
       });
   };
 
-  const [glasses, setGlasses] = useState([]);
   const fetchGlasses = async () => {
     getFilters("g")
       .then((response) => setGlasses(response.data.drinks))
@@ -45,7 +49,6 @@ const BartenderBeginner = () => {
       });
   };
 
-  const [ingredients, setIngredients] = useState([]);
   const fetchIngredients = async () => {
     getFilters("i")
       .then((response) => setIngredients(response.data.drinks))
@@ -54,7 +57,6 @@ const BartenderBeginner = () => {
       });
   };
 
-  const [alcohol, setAlcohol] = useState([]);
   const fetchAlcohol = async () => {
     getFilters("a")
       .then((response) => setAlcohol(response.data.drinks))

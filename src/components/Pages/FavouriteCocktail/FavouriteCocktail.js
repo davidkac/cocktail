@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cocktailActions } from "../../../store/cocktail-slice";
 import Typography from '@mui/material/Typography';
@@ -10,7 +10,6 @@ const FavouriteCocktail = () => {
     (state) => state.cocktail.favouriteItems
   );
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
 
   const getItemsFromLocalStorage = () => {
     const favourites = JSON.parse(localStorage.getItem("favourites")) || [];

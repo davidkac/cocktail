@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./CocktailCard.module.css";
 import { Link } from "react-router-dom";
 import { cocktailActions } from "../../store/cocktail-slice";

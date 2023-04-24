@@ -68,7 +68,7 @@ const MainNavigation = () => {
       <AppBar position="static">
         <Container fixed>
           <Toolbar className={classes.toolbar}>
-            <WineBarIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <WineBarIcon sx={{ display: { xs: "none", md: "flex" , fontSize:'2rem' }, mr: 1 }} />
             <MenuItem className={classes.menuItem} sx={{fontSize: "14px"}} component={Link} to="/">
               Home
             </MenuItem>
