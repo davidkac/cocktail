@@ -31,9 +31,9 @@ const CocktailDetail = () => {
     getCocktail(params.cocktailId)
       .then((response) => {
 
-        if(!response.data.drinks) 
-return;
+        if(!response.data.drinks) return;
 
+        // Rename prop in obj to comply with naming convention
         let coctailRes = {
           strInstructionsEN: response.data.drinks[0].strInstructions,
           ...response.data.drinks[0],
@@ -42,9 +42,6 @@ return;
         let ingredientsArray = [];
         let measuresArray = [];
         let instructionsArray = [];
-
-        
-
 
         // Extract neccassary arrays of objects from response
         for (const prop in coctailRes) {
@@ -56,16 +53,10 @@ return;
             instructionsArray.push(prop.substring(15, 17));
         }
 
-
-
         setCocktail(coctailRes);
         setIngredients(ingredientsArray);
         setMeasure(measuresArray);
         setInstructions(instructionsArray);
-
-        
-
-        console.log(instructionsArray);
       })
       .catch((error) => console.log(error));
   };
@@ -74,8 +65,8 @@ return;
     dispatch(cocktailActions.addCocktailToFavourite(cocktail));
   };
 
+  // show instruction based on selected language
   const showInstructions = (event) => {
-    console.log(event.target.value);
     setInstruction(event.target.value);
     setInstructionText(cocktail["strInstructions" + event.target.value]);
   };
@@ -83,10 +74,6 @@ return;
   useEffect(() => {
     fetchCocktail();
   }, []);
-
-  // if (!cocktail.length ) {
-  //   throw new Error("Cocktail not found");
-  // }
 
   return (
     <>
@@ -170,7 +157,6 @@ return;
                     label="ingredients"
                     onChange={(event) => showInstructions(event)}
                   >
-                    {" "}
                     {instructions.map((instruction, key) => {
                       return (
                         <MenuItem value={instruction} key={key}>

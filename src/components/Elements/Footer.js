@@ -12,7 +12,7 @@ export default function LabelBottomNavigation() {
 
   return (
     <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+      sx={{ position: "static", bottom: 0, left: 0, right: 0 }}
       elevation={2}
     >
       <BottomNavigation value={value} onChange={handleChange}>

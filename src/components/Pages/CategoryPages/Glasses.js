@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getGlasses } from "../../Services/CocktailService";
+import { getFilters } from "../../Services/CocktailService";
 import List from "../../Elements/List";
 
 const Glasses = () => {
 
   const [glasses, setGlasses] = useState([]);
   const fetchGlasses = async () => {
-    getGlasses()
+    getFilters('g')
       .then((response) => setGlasses(response.data.drinks))
       .then((error) => console.log(error));
   }

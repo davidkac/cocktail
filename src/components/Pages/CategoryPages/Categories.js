@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getCategories } from "../../Services/CocktailService";
+import { getFilters } from "../../Services/CocktailService";
 import List from "../../Elements/List";
 
 const Categories = () => {
 
   const [category, setCategory] = useState([]);
   const fetchCategory = async () => {
-    getCategories()
+    getFilters('c')
       .then((response) => setCategory(response.data.drinks))
       .then((error) => console.log(error));
   }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getIngredients } from "../../Services/CocktailService";
+import { getFilters } from "../../Services/CocktailService";
 import List from "../../Elements/List";
 
 const Ingredients = () => {
 
   const [ingredients, setIngredients] = useState([]);
   const fetchIngredients = async () => {
-    getIngredients()
+    getFilters('i')
       .then((response) => setIngredients(response.data.drinks))
       .then((error) => console.log(error));
   }
