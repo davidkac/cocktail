@@ -36,7 +36,7 @@ const BartenderBeginner = () => {
   const fetchCategory = async () => {
     getFilters("c")
       .then((response) => setCategory(response.data.drinks))
-      .then((error) => {
+      .catch((error) => {
         throw error;
       });
   };
@@ -44,7 +44,7 @@ const BartenderBeginner = () => {
   const fetchGlasses = async () => {
     getFilters("g")
       .then((response) => setGlasses(response.data.drinks))
-      .then((error) => {
+      .catch((error) => {
         throw error;
       });
   };
@@ -52,7 +52,7 @@ const BartenderBeginner = () => {
   const fetchIngredients = async () => {
     getFilters("i")
       .then((response) => setIngredients(response.data.drinks))
-      .then((error) => {
+      .catch((error) => {
         throw error;
       });
   };
@@ -60,7 +60,7 @@ const BartenderBeginner = () => {
   const fetchAlcohol = async () => {
     getFilters("a")
       .then((response) => setAlcohol(response.data.drinks))
-      .then((error) => {
+      .catch((error) => {
         throw error;
       });
   };
