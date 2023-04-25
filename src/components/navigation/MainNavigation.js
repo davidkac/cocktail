@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Button, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Button } from "@mui/material";
 import WineBarIcon from "@mui/icons-material/WineBar";
 import classes from "./MainNavigation.module.css";
 import Container from "@mui/material/Container";

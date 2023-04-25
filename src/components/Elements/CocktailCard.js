@@ -15,18 +15,22 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import { useSelector ,useDispatch} from "react-redux";
 
 // Add Dialog Slide In transition
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CocktailCard = ({ listCoctails, dispatch, favouritePage }) => {
+const CocktailCard = ({ listCoctails }) => {
   // Handle dialog state
   const [open, setOpen] = useState(false);
 
   // Used to pass selected item to dialog
   const [activeItem, setActiveItem] = useState({});
+
+  const favourites = useSelector((state) => state.cocktail.favouriteItems);
+  const dispatch = useDispatch();
 
   // Actions after dialog is opened/closed
   const handleClickOpen = (item) => {
@@ -40,7 +44,7 @@ const CocktailCard = ({ listCoctails, dispatch, favouritePage }) => {
 
   // Methods for adding/removing cocktails from fav list
   const addToFavourite = (cocktail) => {
-    dispatch(cocktailActions.addCocktailToFavourite(cocktail));
+    dispatch(cocktailActions.addCocktailToFavourite(cocktail.idDrink));
   };
 
   const removeFromFavourite = (id) => {
@@ -89,7 +93,7 @@ const CocktailCard = ({ listCoctails, dispatch, favouritePage }) => {
                   Details
                 </Button>
               </Link>
-              {favouritePage ? (
+              {favourites.includes(item.idDrink) ? (
                 <Button
                   className={classes.actionBtn}
                   size="small"

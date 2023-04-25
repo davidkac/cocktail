@@ -19,7 +19,7 @@ const CocktailDetail = () => {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const [measure, setMeasure] = useState([]);
-  const [instruction, setInstruction] = useState("");
+  const [instruction, setInstruction] = useState("EN");
   const [instructionText, setInstructionText] = useState("");
 
   const dispatch = useDispatch();
@@ -33,35 +33,38 @@ const CocktailDetail = () => {
         if(!response.data.drinks) return;
 
         // Rename prop in obj to comply with naming convention
-        let coctailRes = {
+        let cocktailRes = {
           strInstructionsEN: response.data.drinks[0].strInstructions,
           ...response.data.drinks[0],
         };
-        delete coctailRes.strInstructions;
+        delete cocktailRes.strInstructions;
         let ingredientsArray = [];
         let measuresArray = [];
         let instructionsArray = [];
 
         // Extract neccassary arrays of objects from response
-        for (const prop in coctailRes) {
-          if (prop.includes("Ingredient") && coctailRes[prop])
-            ingredientsArray.push({ [prop]: coctailRes[prop] });
-          if (prop.includes("Measure") && coctailRes[prop])
-            measuresArray.push({ [prop]: coctailRes[prop] });
-          if (prop.includes("Instructions") && coctailRes[prop])
+        for (const prop in cocktailRes) {
+          if (prop.includes("Ingredient") && cocktailRes[prop])
+            ingredientsArray.push({ [prop]: cocktailRes[prop] });
+          if (prop.includes("Measure") && cocktailRes[prop])
+            measuresArray.push({ [prop]: cocktailRes[prop] });
+          if (prop.includes("Instructions") && cocktailRes[prop])
             instructionsArray.push(prop.substring(15, 17));
         }
 
-        setCocktail(coctailRes);
+        setCocktail(cocktailRes);
         setIngredients(ingredientsArray);
         setMeasure(measuresArray);
         setInstructions(instructionsArray);
+
+        // Show EN instructions on page load
+        setInstructionText(cocktailRes["strInstructionsEN"]);
       })
       .catch((error) => console.log(error));
   };
 
   const addCocktailToFavouriteHandler = (cocktail) => {
-    dispatch(cocktailActions.addCocktailToFavourite(cocktail));
+    dispatch(cocktailActions.addCocktailToFavourite(cocktail.idDrink));
   };
 
   // show instruction based on selected language
@@ -105,7 +108,7 @@ const CocktailDetail = () => {
           </div>
         </Box>
         <Box>
-          <Button
+        <Button
             className={classes.favBtn}
             variant="outlined"
             onClick={() => addCocktailToFavouriteHandler(cocktail)}

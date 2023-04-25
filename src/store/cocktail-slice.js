@@ -3,41 +3,32 @@ import { createSlice } from "@reduxjs/toolkit";
 const cocktailSlice = createSlice({
   name: "cocktail",
   initialState: {
-    favouriteItems: [],
-    favouritesChanged: false,
+    favouriteItems: JSON.parse(localStorage.getItem("favourites")) || [],
   },
   reducers: {
     replaceCocktailFavourites(state, action) {
-      state.favouriteItems = action.payload.favouriteItems;
+      state.favouriteItems = action.payload;
     },
 
     addCocktailToFavourite(state, action) {
-      const cocktail = action.payload;
-      const existingCocktail = state.favouriteItems.find(
-        (item) => item.idDrink === cocktail.idDrink
-      );
-      state.favouritesChanged = true;
+      const cocktailId = action.payload;
+
+      // Check if cocktail exists in favorites array, if not save it to local storage
+      const existingCocktail = state.favouriteItems.includes(cocktailId);
       if (!existingCocktail) {
-        state.favouriteItems.push({ ...cocktail });
+        state.favouriteItems.push(cocktailId);
       }
-      localStorage.setItem(
-        "favourites",
-        JSON.stringify(state.favouriteItems)
-      );
+      localStorage.setItem("favourites", JSON.stringify(state.favouriteItems));
     },
-    
     removeCocktailFromFavourite(state, action) {
       const cocktailId = action.payload;
       state.favouriteItems = state.favouriteItems.filter(
-        (item) => item.idDrink !== cocktailId
-      )
-      state.favouritesChanged = Boolean(state.favouriteItems.length);
-      localStorage.setItem(
-        "favourites",
-        JSON.stringify(state.favouriteItems)
-      )   
+        (id) => id !== cocktailId
+      );
+      localStorage.setItem("favourites", JSON.stringify(state.favouriteItems));
+    },
   },
-}});
+});
 
 export const cocktailActions = cocktailSlice.actions;
 

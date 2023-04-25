@@ -3,12 +3,11 @@ import { getFilters } from "../../Services/CocktailService";
 import List from "../../Elements/List";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Typography } from "@mui/material";
 
 const Glasses = () => {
   const [glasses, setGlasses] = useState([]);
   const [page, setPage] = useState(1);
-
+  const [totalGlasses, setTotalGlasses] = useState(0);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -21,7 +20,10 @@ const Glasses = () => {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     getFilters("g")
-      .then((response) => setGlasses(response.data.drinks.slice(startIndex,endIndex)))
+      .then((response) => {
+        setGlasses(response.data.drinks.slice(startIndex, endIndex));
+        setTotalGlasses(response.data.drinks.length);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -29,12 +31,14 @@ const Glasses = () => {
     fetchGlasses();
   }, [page]);
 
+  const totalPages = Math.ceil(totalGlasses / itemsPerPage); // calculate total number of pages
+  
+
   return (
     <>
       <List name={"Glasses"} prop={"strGlass"} data={glasses}></List>
-      <Stack spacing={2}>
-        <Typography>Page: {page}</Typography>
-        <Pagination count={5} page={page} onChange={handleChange} />
+      <Stack spacing={2} alignItems="end" justifyContent="center">
+        <Pagination count={totalPages} page={page} onChange={handleChange} />
       </Stack>
     </>
   );

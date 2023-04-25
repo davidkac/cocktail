@@ -6,20 +6,17 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
 
-  const [existFavourite, setExistFavourite ] = useState(false);
-  const favouritesChanged = useSelector(
-    (state) => state.cocktail.favouritesChanged
+// Get favorites from global state
+  const favourites = useSelector(
+    (state) => state.cocktail.favouriteItems
   );
+  const [existFavourite, setExistFavourite ] = useState(favourites.length);
 
-  const getItemsFromLocalStorage = () => {
-    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-    console.log('FAV', favourites)
-    setExistFavourite(favourites.length > 0);
-  };
-
+  
   useEffect(() => {
-    getItemsFromLocalStorage();
-  }, [favouritesChanged]);
+    // Update state & view when favorites change
+    setExistFavourite(favourites.length);
+  }, [favourites]);
 
   return (
     <>
@@ -29,3 +26,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
